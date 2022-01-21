@@ -10,7 +10,7 @@ if ((`wc -c < ansible.log` > 51200)); then
 	0) Clear ansible.log and continue.
 	1) Ignore and continue.
 	Any other key) Exit."
-	read -p "Choose your action [0-2]:" x
+	read -p "Choose your action [0-1]:" x
 	case $x in
 		0) echo > ansible.log 
 		ansible;;
