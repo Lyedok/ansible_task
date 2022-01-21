@@ -1,0 +1,16 @@
+---
+# tasks file for disable_firewalld_selinux
+- name: Disable firewalld...
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Stop selinux
+  shell: "setenforce 0"
+
+- name: Disable selinux...
+  replace:
+    path: /etc/selinux/config
+    regexp: SELINUX=enforcing
+    replace: SELINUX=disabled

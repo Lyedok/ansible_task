@@ -1,0 +1,12 @@
+---
+
+- name: CentOS configuration
+  hosts: all
+  become: yes
+
+  roles:
+    - update_packages
+    - disable_firewalld_selinux
+    - install_packages
+    - install_python
+    - install_docker

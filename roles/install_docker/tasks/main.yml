@@ -1,0 +1,44 @@
+---
+# tasks file for install_docker
+- name: Remove old Docker...
+  yum:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+    state: absent
+
+- name: Install yum utils...
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Add Docker repository...
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: Installing Docker...
+  yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+
+- name: Start and enable Docker...
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Check Docker version...
+  shell: docker --version
+  register: d_version
+
+- name: Print Docker version!
+  debug:
+    var: d_version.stdout

@@ -1,0 +1,53 @@
+---
+# tasks file for install_python
+- name: Installing necessary packages...
+  yum:
+    name:
+      - gcc
+      - openssl-devel
+      - bzip2-devel
+      - libffi-devel
+      - zlib-devel
+      - tar
+      - make
+
+- name: Unarchive Python...
+  unarchive:
+    src: https://www.python.org/ftp/python/3.9.10/Python-3.9.10.tgz
+    dest: ./
+    remote_src: yes
+
+- name: Configure Python...
+  shell: ./configure --enable-optimizations
+  args:
+    chdir: ./Python-3.9.10
+
+- name: Building Python... It may take a while...
+  make:
+    chdir: ./Python-3.9.10
+    target: altinstall
+
+- name: Delete unarchived files...
+  file:
+    path: ./Python-3.9.10/
+    state: absent
+
+- name: Removing packages... 
+  yum:
+    name:
+      - gcc
+      - openssl-devel
+      - bzip2-devel
+      - libffi-devel
+      - zlib-devel
+      - make
+    state: absent
+
+- name: Check Python version...
+  shell: "python3.9 --version"
+  become: no
+  register: p_version
+
+- name: Print Python version!
+  debug:
+    var: p_version.stdout

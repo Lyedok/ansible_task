@@ -1,0 +1,12 @@
+---
+# tasks file for package_update
+
+- name: Installing common packages...
+  yum:
+    name:
+      - net-tools
+      - telnet
+      - nano
+      - mc
+      - vim
+    state: latest

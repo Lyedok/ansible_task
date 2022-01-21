@@ -1,0 +1,6 @@
+---
+# tasks file for package_update
+
+- name: Updating packages... It may take a while...
+  yum: update_cache=yes name=* state=latest 
+    
