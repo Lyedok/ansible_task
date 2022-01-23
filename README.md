@@ -1,4 +1,4 @@
-# This repo contains 5 ansible roles (all of them for CentOS):
+# This repo contains 5 ansible roles (all of them only for CentOS):
 1. Update packages;
 2. Disable firewalld and selinux;
 3. Install net-tools, telnet, nano, mc, vim;
